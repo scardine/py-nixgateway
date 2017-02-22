@@ -1,11 +1,12 @@
 import unittest
-from nixgateway.api import NixGageway
+from nixgateway.api import NixGateway
 from settings import key, secret
+from uuid import uuid4
 
 
 class TestCardPayments(unittest.TestCase):
     def setUp(self):
-        self.gateway = NixGageway(key, secret)
+        self.gateway = NixGateway(key, secret)
 
     def test_get(self):
         self.assertIsInstance(self.gateway.orders.card_payments(), list)
@@ -23,6 +24,27 @@ class TestCardPayments(unittest.TestCase):
         ]
         self.assertIsInstance(self.gateway.orders.card_payments(tokens), list)
 
+    def test_authorize(self):
+        response = self.gateway.orders.card_payments.authorize(
+            request_id=str(uuid4()),
+            order_id=str(uuid4()),
+            amount=100.00,
+            card={
+                'expirationDate': {
+                    'month': '01',
+                    'year': '2051'
+                },
+                'holder': {
+                    'name': 'Paulo Scardine',
+                    'socialNumber': '64865239804'
+                },
+                'number': '5194111171117780',
+                'securityCode': '111'
+            },
+            return_url='http://requestb.in/1ca4hkh1',
+        )
+        self.assertIsInstance(response, dict)
+        self.assertNotIn('error', response)
 
 
 if __name__ == '__main__':
