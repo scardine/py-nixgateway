@@ -46,11 +46,12 @@ to `orders.card_payments.authorize()`.
 Support
 -------
 
-Issues will be dealed in a "best effort" capacity - be always very 
-polite or your issues will be closed right way. Volunteers here are not
-your employees and you should have no expectation about we solving 
-your problems. Pull requests are welcome, criticism from free-riders 
-is not.
+Issues will be dealt with in a "best effort" capacity. When raising issues, 
+always be very polite or they will be promptly closed. Volunteers here are not
+your employees, please hold no expectation about them solving 
+your problems or responding in a timely manner.
+
+Pull requests are welcome.
  
 
 
