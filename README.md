@@ -24,7 +24,7 @@ Instantiating the API client
 
 You must have your API credentials at hand:
 
-    from nixgateway import NixGateway
+    from nixgateway.api import NixGateway
     ngw = NixGateway(key, secret)
      
 Now you can call API methods as native Python methods:
