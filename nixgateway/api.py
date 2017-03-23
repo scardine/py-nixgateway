@@ -67,6 +67,22 @@ class CardPayments(object):
             "response": r.text,
         }
 
+    def capture(self, token):
+        payload = {
+            "paymentToken": token,
+            "amount": 0,
+        }
+        headers = self._gateway.orders.get_headers()
+        url = self._gateway.base_url + '/Orders/CardPayments/Capture'
+        r = requests.post(url, headers=headers, json=payload)
+        if r.status_code == 200:
+            return r.json()
+        return {
+            "error": "Response was not HTTP 200",
+            "status_code": r.status_code,
+            "response": r.text,
+        }
+
 
 class Orders(object):
     def __init__(self, gateway):
