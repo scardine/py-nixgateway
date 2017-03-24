@@ -1,5 +1,6 @@
 # coding=utf-8
 import json
+from uuid import uuid4
 
 import requests
 import time
@@ -93,8 +94,9 @@ class Orders(object):
         headers = {
             "Authorization": "Bearer {}".format(self._gateway.get_token())
         }
-        if request_id is not None:
-            headers['requestId'] = request_id
+        if request_id is None:
+            request_id = str(uuid4())
+        headers['requestId'] = request_id
         return headers
 
 
