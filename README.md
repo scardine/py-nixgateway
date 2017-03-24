@@ -37,10 +37,57 @@ Method Mapping
 The following rules are used:
 
   * slashes from an endpoint are converted to dots
-  * path components and argument names are converted from CamelCase to snake_case. 
+  * path components and argument names are converted from CamelCase to snake_case.
+  * first level json keys from the JSON payload are converted to Python function arguments
 
 For exemple, an endpoint like `/Orders/CardPayments/Authorize` is mapped
 to `orders.card_payments.authorize()`. 
+
+    In [3]: ngw.orders.card_payments.authorize({
+      "capture": false,
+      "order_id": "a3a82307-fff7-4213-9233-19531c24d272",
+      "amount": 100.0,
+      "card": {
+        "securityCode": "111",
+        "holder": {
+           "socialNumber": "64865239804",
+           "name": "Paulo Scardine"
+        },
+        "expirationDate": {
+          "year": "2051",
+          "month": "01"
+        },
+        "number": "5194111171117780"
+      },
+      "request_id": "934f1662-eb93-4c1e-9ea4-173f6a573605",
+      "return_url": "http://requestb.in/1ca4hkh1"
+    })
+    Out[3]: {
+      "merchantOrderId": "a3a82307-fff7-4213-9233-19531c24d272",
+      "payment": {
+        "reversals": [],
+        "recurrencePlan": null,
+        "authenticationUrl": null,
+        "paymentToken": "bcc6bf76-2ca6-4245-9fe3-3a05a0d859de",
+        "card": {
+          "cardBrand": "Mastercard",
+          "cardNumber": "519411******7780",
+          "holder": null
+        },
+        "customer": null,
+        "paymentStatus": 1,
+        "amount": 10000,
+        "captures": [],
+        "authorization": {
+          "authorizationCode": "bf3cbb", 
+          "amount": 10000,
+          "returnCode": "0000",
+          "processedDate": "2017-03-24T11:21:51.7665085-03:00",
+          "proofOfSale": "34571"
+        },
+        "transactionType": 1
+      }
+    }
 
 
 Support
