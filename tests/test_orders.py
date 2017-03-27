@@ -46,6 +46,35 @@ class TestCardPayments(unittest.TestCase):
         self.assertIsInstance(response, dict)
         self.assertNotIn('error', response)
 
+    def test_capture(self):
+        response = self.gateway.orders.card_payments.authorize(
+            request_id=str(uuid4()),
+            capture=False,
+            order_id=str(uuid4()),
+            amount=100.00,
+            card={
+                'expirationDate': {
+                    'month': '01',
+                    'year': '2051'
+                },
+                'holder': {
+                    'name': 'Paulo Scardine',
+                    'socialNumber': '64865239804'
+                },
+                'number': '5194111171117780',
+                'securityCode': '111'
+            },
+            return_url='http://requestb.in/1ca4hkh1',
+        )
+        self.assertIsInstance(response, dict)
+        self.assertNotIn('error', response)
+        self.assertIn('payment', response)
+        self.assertIn('paymentToken', response['payment'])
+        response = self.gateway.orders.card_payments.capture(
+            token=response['payment']['paymentToken']
+        )
+        self.assertNotIn('error', response)
+
 
 if __name__ == '__main__':
     unittest.main()
