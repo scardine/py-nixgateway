@@ -71,7 +71,8 @@ class TestCardPayments(unittest.TestCase):
         self.assertIn('payment', response)
         self.assertIn('paymentToken', response['payment'])
         response = self.gateway.orders.card_payments.capture(
-            token=response['payment']['paymentToken']
+            token=response['payment']['paymentToken'],
+            amount=100
         )
         self.assertNotIn('error', response)
 
