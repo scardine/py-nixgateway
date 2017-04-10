@@ -32,16 +32,16 @@ class TestCardPayments(unittest.TestCase):
             card={
                 'expirationDate': {
                     'month': '01',
-                    'year': '2051'
+                    'year': '2020'
                 },
                 'holder': {
                     'name': 'Paulo Scardine',
                     'socialNumber': '64865239804'
                 },
-                'number': '5194111171117780',
+                'number': '4916548367656009',
                 'securityCode': '111'
             },
-            return_url='http://requestb.in/1ca4hkh1',
+            return_url='http://requestb.in/ro6pzmro',
         )
         self.assertIsInstance(response, dict)
         self.assertNotIn('error', response)
@@ -61,16 +61,46 @@ class TestCardPayments(unittest.TestCase):
                     'name': 'Paulo Scardine',
                     'socialNumber': '64865239804'
                 },
-                'number': '5194111171117780',
+                'number': '4916548367656009',
                 'securityCode': '111'
             },
-            return_url='http://requestb.in/1ca4hkh1',
+            return_url='http://requestb.in/ro6pzmro',
         )
         self.assertIsInstance(response, dict)
         self.assertNotIn('error', response)
         self.assertIn('payment', response)
         self.assertIn('paymentToken', response['payment'])
         response = self.gateway.orders.card_payments.capture(
+            token=response['payment']['paymentToken'],
+            amount=100
+        )
+        self.assertNotIn('error', response)
+
+    def test_reverse(self):
+        response = self.gateway.orders.card_payments.authorize(
+            request_id=str(uuid4()),
+            capture=False,
+            order_id=str(uuid4()),
+            amount=100.00,
+            card={
+                'expirationDate': {
+                    'month': '01',
+                    'year': '2051'
+                },
+                'holder': {
+                    'name': 'Paulo Scardine',
+                    'socialNumber': '64865239804'
+                },
+                'number': '4916548367656009',
+                'securityCode': '111'
+            },
+            return_url='http://requestb.in/ro6pzmro',
+        )
+        self.assertIsInstance(response, dict)
+        self.assertNotIn('error', response)
+        self.assertIn('payment', response)
+        self.assertIn('paymentToken', response['payment'])
+        response = self.gateway.orders.card_payments.reverse(
             token=response['payment']['paymentToken'],
             amount=100
         )

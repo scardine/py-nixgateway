@@ -84,6 +84,22 @@ class CardPayments(object):
             "response": r.text,
         }
 
+    def reverse(self, token, amount):
+        payload = {
+            "paymentToken": token,
+            "amount": int(float(amount) * 100),
+        }
+        headers = self._gateway.orders.get_headers()
+        url = self._gateway.base_url + '/Orders/CardPayments/Reverse'
+        r = requests.put(url, headers=headers, json=payload)
+        if r.status_code == 200:
+            return r.json()
+        return {
+            "error": "Response was not HTTP 200",
+            "status_code": r.status_code,
+            "response": r.text,
+        }
+
 
 class Orders(object):
     def __init__(self, gateway):
