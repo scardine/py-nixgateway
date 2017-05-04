@@ -93,14 +93,8 @@ to `orders.card_payments.authorize()`.
 Support
 -------
 
-Issues will be dealt with in a "best effort" capacity. When raising issues, 
-always be very polite or they will be promptly closed. Please hold no expectation 
-about people solving your problems or responding in a timely manner .
+Issues will be dealt with in a "best effort" capacity - please hold no expectation 
+about volunteers solving your problems or responding in a timely manner unless you
+are sponsoring the work.
 
-Pull requests are welcome.
- 
-
-
-
-
-
+Pull requests and polite bug reports are welcome.
