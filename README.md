@@ -94,9 +94,8 @@ Support
 -------
 
 Issues will be dealt with in a "best effort" capacity. When raising issues, 
-always be very polite or they will be promptly closed. Volunteers here are not
-your employees, please hold no expectation about them solving 
-your problems or responding in a timely manner.
+always be very polite or they will be promptly closed. Please hold no expectation 
+about people solving your problems or responding in a timely manner .
 
 Pull requests are welcome.
  
